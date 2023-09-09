@@ -16,21 +16,30 @@ export default function Checkout({ ...props }) {
     return (
         <Box>
             <Grid
-                // templateColumns="repeat(2, 1fr)"
+                templateAreas={{
+                    base: `"delivery"
+                    "payment"
+                    "cart"`,
+                    md: `"delivery cart"
+                         "payment cart"`,
+                }}
                 templateColumns={{
                     md: 'repeat(2, 1fr)',
                 }}
-                templateRows="repeat(1, 1fr)"
                 gap={4}
                 {...props}
             >
-                <GridItem>{hasItems && <DeliveryMethod />}</GridItem>
-
-                <GridItem rowSpan={2} colSpan={1}>
-                    <Cart />
+                <GridItem area={'delivery'}>
+                    {hasItems && <DeliveryMethod />}
                 </GridItem>
 
-                <GridItem>{hasItems && <PaymentMethods />}</GridItem>
+                <GridItem area={'payment'}>
+                    {hasItems && <PaymentMethods />}
+                </GridItem>
+
+                <GridItem rowSpan={2} colSpan={1} area={'cart'}>
+                    <Cart />
+                </GridItem>
             </Grid>
 
             <Confirmation

@@ -14,6 +14,7 @@ import Confirmation from './Confirmation';
 import { FaCcPaypal } from 'react-icons/fa';
 import { CiCreditCard1 } from 'react-icons/ci';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 
 export default function PaymentMethods() {
     const {
@@ -29,9 +30,17 @@ export default function PaymentMethods() {
     return (
         <Box borderWidth="1px" borderRadius="lg" p={6}>
             <VStack align="stretch" gap={5}>
-                <Heading as="h2" size="md">
-                    Payment
-                </Heading>
+                <Flex alignItems="center">
+                    <Heading as="h2" size="md">
+                        Payment
+                    </Heading>
+                    <Icon
+                        as={AiOutlineCheckCircle}
+                        boxSize={8}
+                        color="green.500"
+                        ml="2"
+                    />
+                </Flex>
 
                 <Heading as="h3" size="sm">
                     Use Credit/Debit Card
