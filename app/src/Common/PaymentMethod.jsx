@@ -11,10 +11,22 @@ import {
     Text,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
-import { FaCcVisa } from 'react-icons/fa';
+import {
+    FaCcVisa,
+    FaCcMastercard,
+    FaCcAmex,
+    FaCcDiscover,
+} from 'react-icons/fa';
 import { ImCreditCard } from 'react-icons/im';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { useState } from 'react';
+
+const CARDS = {
+    amex: FaCcAmex,
+    discover: FaCcDiscover,
+    mastercard: FaCcMastercard,
+    visa: FaCcVisa,
+};
 
 export default function PaymentMethod({ onEdit, onRemove, paymentMethod }) {
     const [cvc, setCvc] = useState('');
@@ -22,9 +34,9 @@ export default function PaymentMethod({ onEdit, onRemove, paymentMethod }) {
     return (
         <Box borderWidth="1px" borderRadius="lg" p={6}>
             <Flex>
-                <Icon as={FaCcVisa} boxSize={8} mr={3} />
+                <Icon as={CARDS[paymentMethod.cardType]} boxSize={8} mr={3} />
                 <Box>
-                    <Heading as="h4" size="sm">
+                    <Heading as="h4" size="sm" textTransform="capitalize">
                         {paymentMethod.cardType} - {paymentMethod.last4}
                     </Heading>
                     <Text color="gray">

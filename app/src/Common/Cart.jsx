@@ -10,6 +10,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { useCart } from '../hooks/useCart';
+import { usePayments } from '../hooks/usePayments';
 import CartItem from './CartItem';
 import { useState } from 'react';
 
@@ -18,6 +19,10 @@ export default function Cart() {
         cartActions: { placeOrder },
         cartState: { items, total },
     } = useCart();
+
+    const {
+        paymentsState: { paymentMethods },
+    } = usePayments();
 
     const [agreeToTerms, setAgreeToTerms] = useState(false);
 
@@ -69,7 +74,9 @@ export default function Cart() {
                         <Button
                             colorScheme="green"
                             isDisabled={
-                                items.length === 0 || agreeToTerms === false
+                                items.length === 0 ||
+                                agreeToTerms === false ||
+                                paymentMethods.length === 0
                             }
                             size="lg"
                             onClick={placeOrder}
