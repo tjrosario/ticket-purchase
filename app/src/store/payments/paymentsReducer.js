@@ -4,7 +4,7 @@ import { SELECT_PAYMENT_METHOD, REMOVE_PAYMENT_METHOD, EDIT_PAYMENT_METHOD, RESE
 export const initialState = {
     adding: false,
     paymentMethods: PAYMENT_METHODS,
-    selected: null,
+    selected: { id: 0 },
     editing: null
 };
 

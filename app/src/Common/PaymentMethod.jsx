@@ -8,6 +8,7 @@ import {
     InputGroup,
     InputRightElement,
     Link,
+    Radio,
     Text,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
@@ -28,12 +29,34 @@ const CARDS = {
     visa: FaCcVisa,
 };
 
-export default function PaymentMethod({ onEdit, onRemove, paymentMethod }) {
+export default function PaymentMethod({
+    onEdit,
+    onRemove,
+    paymentMethod,
+    selected,
+    onSelect,
+}) {
     const [cvc, setCvc] = useState('');
 
     return (
-        <Box borderWidth="1px" borderRadius="lg" p={6}>
-            <Flex>
+        <Box
+            borderWidth="1px"
+            borderRadius="lg"
+            bg={selected ? 'gray.100' : null}
+            p={6}
+            onClick={() => onSelect(paymentMethod)}
+            _hover={{
+                cursor: 'pointer',
+            }}
+        >
+            <Flex alignItems="flex-start">
+                <Radio
+                    mr="4"
+                    size="lg"
+                    colorScheme="blue"
+                    isChecked={selected}
+                    value={paymentMethod.id}
+                />
                 <Icon as={CARDS[paymentMethod.cardType]} boxSize={8} mr={3} />
                 <Box>
                     <Heading as="h4" size="sm" textTransform="capitalize">
@@ -51,10 +74,13 @@ export default function PaymentMethod({ onEdit, onRemove, paymentMethod }) {
                 </Box>
             </Flex>
 
-            <Text mt="4">Security Code:</Text>
-            <Flex alignItems="center">
+            <Text mt="4" fontSize="14px">
+                Security Code:
+            </Text>
+            <Flex alignItems="center" mt="1">
                 <InputGroup width="auto" mr="3">
                     <Input
+                        bg="white"
                         placeholder="Enter amount"
                         onChange={(e) => setCvc(e.target.value)}
                     />
@@ -79,11 +105,15 @@ export default function PaymentMethod({ onEdit, onRemove, paymentMethod }) {
 PaymentMethod.propTypes = {
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
+    onSelect: PropTypes.func,
     paymentMethod: PropTypes.object,
+    selected: PropTypes.bool,
 };
 
 PaymentMethod.defaultProps = {
     onEdit: () => {},
     onRemove: () => {},
+    onSelect: () => {},
     paymentMethod: {},
+    selected: false,
 };

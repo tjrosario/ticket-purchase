@@ -15,6 +15,7 @@ import { FaCcPaypal } from 'react-icons/fa';
 import { CiCreditCard1 } from 'react-icons/ci';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
+import { useEffect } from 'react';
 
 export default function PaymentMethods() {
     const {
@@ -23,9 +24,16 @@ export default function PaymentMethods() {
             removePaymentMethod,
             addPaymentMethod,
             resetPaymentMethod,
+            selectPaymentMethod,
         },
-        paymentsState: { adding, editing, paymentMethods },
+        paymentsState: { adding, editing, paymentMethods, selected },
     } = usePayments();
+
+    useEffect(() => {
+        if (!selected && paymentMethods.length > 0) {
+            selectPaymentMethod(paymentMethods[0]);
+        }
+    }, []);
 
     return (
         <Box borderWidth="1px" borderRadius="lg" p={6}>
@@ -55,7 +63,11 @@ export default function PaymentMethods() {
                         onRemove={(method) => {
                             removePaymentMethod(method);
                         }}
+                        onSelect={(method) => {
+                            selectPaymentMethod(method);
+                        }}
                         paymentMethod={paymentMethod}
+                        selected={selected && selected.id === paymentMethod.id}
                     />
                 ))}
 
